@@ -7,7 +7,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'slate_sanctuary_secret_key_change_in_production';
 
 app.use(cors({ origin: '*', credentials: true }));
@@ -94,12 +94,8 @@ app.patch('/api/profile/skin-type', authenticate, async (req, res) => {
   } catch (err) { res.status(500).json({ error: 'Server error.' }); }
 });
 
-app.listen(PORT, () => console.log(`🚀 Slate Sanctuary backend running at http://localhost:${PORT}`));
-
-const path = require('path');
-// Serve the frontend files
-app.use(express.static(path.join(__dirname, '../frontend')));
-// Send index.html for the main route
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
+
+app.listen(PORT, '0.0.0.0', () => console.log(`🚀 Slate Sanctuary running at http://0.0.0.0:${PORT}`));
