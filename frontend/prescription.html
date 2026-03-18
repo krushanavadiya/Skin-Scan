@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Glow Prescription</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+
+<body class="slate-body">
+
+  <!-- NAVBAR -->
+  <header class="site-header">
+    <div class="logo-mark">SS</div>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="quiz.html" class="nav-link">Diagnostic Quiz</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+      <a href="prescription.html" class="nav-link active">Glow Prescription</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="hero">
+
+    <article class="bento-item prescription glass-card" id="open-prescription">
+      <header class="bento-header">
+        <h2>Glow Prescription</h2>
+        <span class="pill">Dermatologist</span>
+      </header>
+      <p class="skin-id-value">View prescribed products →</p>
+    </article>
+
+  </main>
+
+  <!-- MODAL -->
+  <div class="rx-modal" id="rx-modal">
+    <div class="rx-modal-content glass-card">
+
+      <h2>Dermatologist Prescriptions</h2>
+
+      <p class="skin-id-label">Select your skin type</p>
+
+      <div class="skin-options">
+        <button class="skin-btn" data-type="oily">Oily</button>
+        <button class="skin-btn" data-type="dry">Dry</button>
+        <button class="skin-btn" data-type="acne">Acne</button>
+        <button class="skin-btn" data-type="sensitive">Sensitive</button>
+      </div>
+
+      <div id="rx-products" class="rx-products"></div>
+
+      <button id="close-rx" class="btn-ghost">Close</button>
+
+    </div>
+  </div>
+<section class="glow-hero glass-card">
+  <img src="https://static.glossgenius.com/public/service/7ed76f5db8fc28b003e3db047850abc5749a03c8/image/58ace6b34ac9191a2fd39a7cc08635e7.jpg" class="glow-image" />
+  <div class="glow-overlay">
+    <h1>Glow Prescription</h1>
+    <p>Your dermatologist-curated skincare essentials</p>
+  </div>
+</section>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p class="footer-copy">Slate Sanctuary © <span id="year"></span></p>
+  </footer>
+
+  <script src="prescription.js"></script>
+</body>
+</html>

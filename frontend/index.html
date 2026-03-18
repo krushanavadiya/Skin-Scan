@@ -1,0 +1,77 @@
+<!-- samriddhi -->
+<!DOCTYPE html>
+<!-- demo -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slate Sanctuary – Skin Diagnostics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="slate-body">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="logo-mark">SS</div>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="quiz.html" class="nav-link">Diagnostic Quiz</a>
+      <a href="dashboard.html" class="nav-link" id="nav-dashboard">Dashboard</a>
+      <a href="login.html" class="nav-link" >Sign In</a>
+      <a href="prescription.html" class="nav-link active">Prescription</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <section class="hero-content">
+      <p class="eyebrow">Slate Sanctuary • Skin Diagnostics</p>
+      <h1 class="hero-heading">
+        Decode your<br />
+        skin’s quiet signals.
+      </h1>
+      <p class="hero-subtitle">
+        A calm, clinically-inspired ritual that translates your habits, climate, and skin feel
+        into a tailored routine you can actually follow.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary magnetic-cta" data-magnetic>
+          Begin your skin diagnostic
+        </button>
+        <button class="btn-ghost" onclick="window.location.href='dashboard.html'">
+          View dashboard
+        </button>
+      </div>
+      <div class="hero-meta">
+        <span>3-minute quiz</span>
+        <span>Dermatologist-informed logic</span>
+        <span>No sign-up required</span>
+      </div>
+    </section>
+
+    <section class="hero-preview glass-card">
+      <h2 class="preview-title">Today’s Snapshot</h2>
+      <p class="preview-label">Your current Skin ID</p>
+      <p id="landing-skin-id" class="preview-value">Take the quiz to reveal your Skin ID.</p>
+      <hr class="preview-divider" />
+      <p class="preview-label">Last recommendation</p>
+      <p id="landing-skin-advice" class="preview-note">
+        We’ll surface focused guidance for hydration, barrier health, and actives once you complete the diagnostic.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-copy">Slate Sanctuary © <span id="year"></span></p>
+    <button class="footer-link" id="retake-footer-landing">Retake Quiz</button>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

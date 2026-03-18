@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slate Sanctuary – Diagnostic Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="slate-body">
+  <header class="site-header">
+    <div class="logo-mark">SS</div>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="quiz.html" class="nav-link active">Diagnostic Quiz</a>
+      <a href="dashboard.html" class="nav-link" id="nav-dashboard">Dashboard</a>
+            <a href="prescription.html" class="nav-link active">Prescription</a>
+
+    </nav>
+  </header>
+
+  <main class="quiz-main">
+    <div class="quiz-wrapper glass-card">
+      <div class="quiz-progress">
+        <div class="quiz-progress-bar" id="quiz-progress-bar"></div>
+      </div>
+
+      <div class="quiz-body">
+        <p class="quiz-label" id="quiz-label">Question 1 of 5</p>
+        <h1 class="quiz-question" id="quiz-question"></h1>
+        <p class="quiz-subtext" id="quiz-subtext"></p>
+
+        <div class="quiz-options" id="quiz-options">
+          <!-- options injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-loading glass-card" id="quiz-loading" aria-hidden="true">
+      <div class="loading-icon">
+        <span class="loading-dot"></span>
+      </div>
+      <p class="loading-label">Analyzing your skin signals…</p>
+      <p class="loading-sub">Building a routine that respects your barrier and your bandwidth.</p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-copy">Slate Sanctuary © <span id="year"></span></p>
+    <button class="footer-link" id="retake-footer-quiz">Retake Quiz</button>
+  </footer>
+
+  <script src="quiz.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slate Sanctuary – Bento Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="slate-body">
+  <header class="site-header">
+    <div class="logo-mark">SS</div>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="quiz.html" class="nav-link">Diagnostic Quiz</a>
+      <a href="dashboard.html" class="nav-link active">Dashboard</a>
+            <a href="prescription.html" class="nav-link active">Prescription</a>
+
+    </nav>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="dashboard-header">
+      <div>
+        <p class="eyebrow">Slate Sanctuary</p>
+        <h1 class="dashboard-title">Your Skin ID Dashboard</h1>
+      </div>
+      <p class="dashboard-subtitle" id="dashboard-greeting">
+        A calm command center for your current Skin ID, AM ritual, and the ingredients that love you back.
+      </p>
+    </section>
+
+    <section class="bento-grid">
+      <!-- Widget 1: Skin ID (2x2) -->
+      <article class="bento-item skin-id glass-card">
+        <header class="bento-header">
+          <h2>Your Skin ID</h2>
+          <span class="pill" id="skin-pill">Uncalibrated</span>
+        </header>
+        <div class="skin-id-body">
+          <p class="skin-id-label">Current profile</p>
+          <p id="skin-id-value" class="skin-id-value">Complete the diagnostic to unlock your profile.</p>
+          <p class="skin-id-label mt-lg">Focus areas</p>
+          <ul id="skin-focus-list" class="skin-focus-list">
+            <li>Oil balance • barrier strength • hydration rhythm</li>
+          </ul>
+        </div>
+      </article>
+
+      
+      <!-- <article class="bento-item am-routine glass-card">
+        <header class="bento-header">
+          <h2>AM Routine</h2>
+          <span class="sub-pill">Swipe to preview</span>
+        </header>
+        <div class="am-strip" id="am-strip">
+          
+        </div>
+      </article> -->
+
+      <!-- Widget 2: AM Routine (2x1) -->
+      <article class="bento-item am-routine glass-card">
+        <header class="bento-header">
+          <h2 id="routine-title">AM Routine</h2>
+          <button class="sub-pill routine-toggle" id="routine-toggle">PM</button>
+        </header>
+        <div class="am-strip" id="am-strip">
+          </div>
+      </article>
+
+      <!-- Widget 3: Ingredient of the Day (1x1) -->
+      <article class="bento-item ingredient-card glass-card">
+        <div class="ingredient-inner">
+          <div class="ingredient-face ingredient-front" id="ingredient-front">
+            <p class="pill pill-soft">Ingredient of the day</p>
+            <h2 id="ingredient-name">Niacinamide</h2>
+            <p id="ingredient-tagline">Barrier-soft, brightness-bringing. For almost every Skin ID.</p>
+          </div>
+          <div class="ingredient-face ingredient-back" id="ingredient-back">
+            <p class="ingredient-detail" id="ingredient-detail">
+              Pairs well with hydration-first routines. Helps even tone and support the skin barrier with minimal drama.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <!-- Widget 5: Recommendations (3x1) -->
+      <article class="bento-item recommendations glass-card">
+        <header class="bento-header">
+          <h2>Recommendations</h2>
+          <span class="sub-pill" id="rec-subtitle">Based on your Skin ID</span>
+        </header>
+        <div class="rec-grid" id="rec-grid" aria-live="polite">
+          <!-- recommendation cards injected via JS -->
+        </div>
+      </article>
+
+      <!-- Widget 4: Community Love (1x2) -->
+      <article class="bento-item community glass-card">
+        <header class="bento-header">
+          <h2>Community Love</h2>
+        </header>
+        <div class="community-ticker-mask">
+          <ul class="community-ticker" id="community-ticker">
+            <!-- reviews injected via JS -->
+          </ul>
+        </div>
+      </article>
+    </section>
+    <section class="curated-section">
+      <header class="curated-header">
+        <div class="curated-title-group">
+          <h2>Curated For You</h2>
+          <p class="curated-subtitle">Real products matched to your Combination Skin ID.</p>
+        </div>
+        <div class="product-tabs" id="product-tabs">
+          <button class="pill toggle-btn active-tab" data-category="cleansers">Cleansers</button>
+          <button class="pill toggle-btn" data-category="treatments">Treatments</button>
+          <button class="pill toggle-btn" data-category="moisturizers">Moisturizers</button>
+        </div>
+      </header>
+      
+      <div class="curated-content glass-card" id="product-display">
+        </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-copy">Slate Sanctuary © <span id="year"></span></p>
+    <button class="footer-link" id="retake-footer-dashboard">Retake Quiz</button>
+  </footer>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slate Sanctuary – Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .login-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2.5rem 1.25rem;
+    }
+
+    .login-wrapper {
+      width: min(480px, 100%);
+      padding: 2.4rem 2.2rem 2.6rem;
+      position: relative;
+    }
+
+    .login-top {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .login-logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(148,163,184,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: #0f172a;
+      margin: 0 auto 1.2rem;
+    }
+
+    .login-title {
+      margin: 0 0 0.4rem;
+      font-size: 1.75rem;
+      letter-spacing: -0.05em;
+    }
+
+    .login-sub {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #64748B;
+    }
+
+    .login-tabs {
+      display: flex;
+      gap: 0;
+      background: rgba(148,163,184,0.12);
+      border-radius: 14px;
+      padding: 3px;
+      margin-bottom: 1.8rem;
+    }
+
+    .login-tab {
+      flex: 1;
+      padding: 0.55rem 0;
+      border: none;
+      background: transparent;
+      border-radius: 11px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #94A3B8;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .login-tab.active {
+      background: rgba(255,255,255,0.95);
+      color: #0F172A;
+      box-shadow: 0 2px 8px rgba(15,23,42,0.08);
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+
+    .form-input {
+      padding: 0.78rem 1rem;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,0.4);
+      background: rgba(255,255,255,0.75);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: #0F172A;
+      outline: none;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(8px);
+    }
+
+    .form-input:focus {
+      border-color: #64748B;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 3px rgba(100,116,139,0.1);
+    }
+
+    .form-input::placeholder {
+      color: #CBD5E1;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .remember-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #64748B;
+      cursor: pointer;
+    }
+
+    .remember-checkbox {
+      width: 16px;
+      height: 16px;
+      accent-color: #0F172A;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      font-size: 0.84rem;
+      color: #64748B;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.2s;
+    }
+
+    .forgot-link:hover {
+      color: #0F172A;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 0.85rem 1.6rem;
+      background: #0F172A;
+      color: #E5E7EB;
+      border: none;
+      border-radius: 32px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 0.4rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 12px 32px rgba(15,23,42,0.22);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 40px rgba(15,23,42,0.28);
+    }
+
+    .btn-login:active {
+      transform: translateY(0);
+    }
+
+    .btn-login.loading {
+      pointer-events: none;
+    }
+
+    .btn-login.loading::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shimmer 1.2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin: 0.4rem 0;
+      font-size: 0.8rem;
+      color: #CBD5E1;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(148,163,184,0.3);
+    }
+
+    .social-btns {
+      display: flex;
+      gap: 0.7rem;
+    }
+
+    .btn-social {
+      flex: 1;
+      padding: 0.68rem 1rem;
+      background: rgba(255,255,255,0.75);
+      border: 1px solid rgba(148,163,184,0.4);
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: #0F172A;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .btn-social:hover {
+      background: rgba(255,255,255,0.95);
+      border-color: #94A3B8;
+    }
+
+    .social-icon {
+      font-size: 1.1rem;
+    }
+
+    .signup-panel {
+      display: none;
+    }
+
+    .signup-panel.visible {
+      display: flex;
+    }
+
+    .signin-panel {
+      display: flex;
+    }
+
+    .signin-panel.hidden {
+      display: none;
+    }
+
+    .form-panel {
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+    }
+
+    .error-msg {
+      font-size: 0.83rem;
+      color: #EF4444;
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      display: none;
+    }
+
+    .error-msg.visible {
+      display: block;
+    }
+
+    .success-msg {
+      font-size: 0.83rem;
+      color: #10B981;
+      background: rgba(16,185,129,0.06);
+      border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 10px;
+      padding: 0.55rem 0.9rem;
+      display: none;
+    }
+
+    .success-msg.visible {
+      display: block;
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: #94A3B8;
+      padding: 0;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="slate-body">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="logo-mark">SS</div>
+    <nav class="site-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="quiz.html" class="nav-link">Diagnostic Quiz</a>
+      <a href="dashboard.html" class="nav-link" id="nav-dashboard">Dashboard</a>
+    </nav>
+  </header>
+
+  <main class="login-main">
+    <div class="login-wrapper glass-card">
+      <div class="login-top">
+        <div class="login-logo">SS</div>
+        <h1 class="login-title">Welcome back</h1>
+        <p class="login-sub">Sign in to access your Skin ID and saved routines.</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="login-tabs">
+        <button class="login-tab active" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+        <button class="login-tab" id="tab-signup" onclick="switchTab('signup')">Create Account</button>
+      </div>
+
+      <!-- Sign In Panel -->
+      <div class="signin-panel form-panel" id="signin-panel">
+        <div class="error-msg" id="signin-error">Incorrect email or password. Please try again.</div>
+        <div class="success-msg" id="signin-success">Signed in! Redirecting to your dashboard…</div>
+
+        <div class="form-field">
+          <label class="form-label" for="signin-email">Email</label>
+          <input class="form-input" type="email" id="signin-email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="signin-password">Password</label>
+          <div class="password-wrap">
+            <input class="form-input" type="password" id="signin-password" placeholder="••••••••" autocomplete="current-password" style="width:100%;padding-right:2.8rem;" />
+            <button class="password-toggle" type="button" onclick="togglePassword('signin-password', this)">👁</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label class="remember-label">
+            <input class="remember-checkbox" type="checkbox" id="remember-me" />
+            Remember me
+          </label>
+          <button class="forgot-link" type="button" onclick="handleForgot()">Forgot password?</button>
+        </div>
+
+        <button class="btn-login" id="signin-btn" onclick="handleSignIn()">Sign In</button>
+
+        <div class="login-divider">or continue with</div>
+
+        <div class="social-btns">
+          <button class="btn-social" onclick="handleSocial('Google')">
+            <span class="social-icon">🌐</span> Google
+          </button>
+          <button class="btn-social" onclick="handleSocial('Apple')">
+            <span class="social-icon">🍎</span> Apple
+          </button>
+        </div>
+      </div>
+
+      <!-- Sign Up Panel -->
+      <div class="signup-panel form-panel" id="signup-panel">
+        <div class="error-msg" id="signup-error">Please fill in all fields correctly.</div>
+        <div class="success-msg" id="signup-success">Account created! Taking you to the diagnostic quiz…</div>
+
+        <div class="form-field">
+          <label class="form-label" for="signup-name">Full Name</label>
+          <input class="form-input" type="text" id="signup-name" placeholder="Your name" autocomplete="name" />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="signup-email">Email</label>
+          <input class="form-input" type="email" id="signup-email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="signup-password">Password</label>
+          <div class="password-wrap">
+            <input class="form-input" type="password" id="signup-password" placeholder="Min. 8 characters" autocomplete="new-password" style="width:100%;padding-right:2.8rem;" />
+            <button class="password-toggle" type="button" onclick="togglePassword('signup-password', this)">👁</button>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="signup-confirm">Confirm Password</label>
+          <div class="password-wrap">
+            <input class="form-input" type="password" id="signup-confirm" placeholder="Repeat password" autocomplete="new-password" style="width:100%;padding-right:2.8rem;" />
+            <button class="password-toggle" type="button" onclick="togglePassword('signup-confirm', this)">👁</button>
+          </div>
+        </div>
+
+        <button class="btn-login" id="signup-btn" onclick="handleSignUp()">Create Account</button>
+
+        <div class="login-divider">or continue with</div>
+
+        <div class="social-btns">
+          <button class="btn-social" onclick="handleSocial('Google')">
+            <span class="social-icon">🌐</span> Google
+          </button>
+          <button class="btn-social" onclick="handleSocial('Apple')">
+            <span class="social-icon">🍎</span> Apple
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p class="footer-copy">Slate Sanctuary © <span id="year"></span></p>
+    <p style="font-size:0.8rem;color:#94A3B8;margin:0;">Your skin. Your ritual. Your data.</p>
+  </footer>
+
+  <script>
+    // ─── Config ───────────────────────────────────────────────────
+    // Change this if your backend runs on a different port
+    const API_BASE = '/api';
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ─── Tab switching ────────────────────────────────────────────
+    function switchTab(tab) {
+      const signinPanel = document.getElementById('signin-panel');
+      const signupPanel = document.getElementById('signup-panel');
+      const tabSignin = document.getElementById('tab-signin');
+      const tabSignup = document.getElementById('tab-signup');
+
+      if (tab === 'signin') {
+        signinPanel.classList.remove('hidden');
+        signinPanel.style.display = 'flex';
+        signupPanel.style.display = 'none';
+        tabSignin.classList.add('active');
+        tabSignup.classList.remove('active');
+      } else {
+        signinPanel.style.display = 'none';
+        signupPanel.style.display = 'flex';
+        tabSignin.classList.remove('active');
+        tabSignup.classList.add('active');
+      }
+    }
+
+    // ─── Password toggle ──────────────────────────────────────────
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.textContent = '🙈';
+      } else {
+        input.type = 'password';
+        btn.textContent = '👁';
+      }
+    }
+
+    // ─── Save session helper ──────────────────────────────────────
+    function saveSession(token, user) {
+      localStorage.setItem('ss_token', token);
+      localStorage.setItem('ss_user', JSON.stringify(user));
+      // If the server already knows their skin type, restore it locally
+      if (user.skin_type) {
+        localStorage.setItem('skinType', user.skin_type);
+      }
+    }
+
+    // ─── Sign In (real API) ───────────────────────────────────────
+    async function handleSignIn() {
+const email = document.getElementById('signin-email').value.trim().toLowerCase();      const password = document.getElementById('signin-password').value;
+      const errorEl  = document.getElementById('signin-error');
+      const successEl = document.getElementById('signin-success');
+      const btn      = document.getElementById('signin-btn');
+
+      errorEl.classList.remove('visible');
+      successEl.classList.remove('visible');
+
+      // Client-side validation
+      if (!email || !password) {
+        errorEl.textContent = 'Please enter your email and password.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (!email.includes('@')) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      btn.textContent = 'Signing in…';
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        const res  = await fetch(`${API_BASE}/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          // Show server error message (e.g. "Incorrect email or password.")
+          errorEl.textContent = data.error || 'Sign-in failed. Please try again.';
+          errorEl.classList.add('visible');
+          btn.textContent = 'Sign In';
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          return;
+        }
+
+        // Success — persist session
+        saveSession(data.token, data.user);
+        successEl.textContent = `Welcome back, ${data.user.name}! Redirecting…`;
+        successEl.classList.add('visible');
+        btn.textContent = 'Signed in ✓';
+setTimeout(() => {
+  const hasSkin = localStorage.getItem('skinType');
+window.location.href = hasSkin ? 'dashboard.html' : 'quiz.html';}, 1200);
+
+      } catch (err) {
+        errorEl.textContent = 'Cannot reach the server. Is the backend running?';
+        errorEl.classList.add('visible');
+        btn.textContent = 'Sign In';
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    }
+
+    // ─── Sign Up (real API) ───────────────────────────────────────
+    async function handleSignUp() {
+      const name     = document.getElementById('signup-name').value.trim();
+      const email    = document.getElementById('signup-email').value.trim();
+      const password = document.getElementById('signup-password').value;
+      const confirm  = document.getElementById('signup-confirm').value;
+      const errorEl  = document.getElementById('signup-error');
+      const successEl = document.getElementById('signup-success');
+      const btn      = document.getElementById('signup-btn');
+
+      errorEl.classList.remove('visible');
+      successEl.classList.remove('visible');
+
+      // Client-side validation
+      if (!name || !email || !password || !confirm) {
+        errorEl.textContent = 'Please fill in all fields.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (!email.includes('@')) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (password.length < 8) {
+        errorEl.textContent = 'Password must be at least 8 characters.';
+        errorEl.classList.add('visible');
+        return;
+      }
+      if (password !== confirm) {
+errorEl.textContent = "Passwords do not match. Please check and retry.";        errorEl.classList.add('visible');
+        return;
+      }
+
+      btn.textContent = 'Creating account…';
+      btn.classList.add('loading');
+      btn.disabled = true;
+
+      try {
+        const res  = await fetch(`${API_BASE}/signup`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await res.json();
+
+        if (!res.ok) {
+          // e.g. "An account with this email already exists."
+          errorEl.textContent = data.error || 'Sign-up failed. Please try again.';
+          errorEl.classList.add('visible');
+          btn.textContent = 'Create Account';
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          return;
+        }
+
+        // Success — persist session
+        saveSession(data.token, data.user);
+        successEl.textContent = 'Account created! Taking you to the diagnostic quiz…';
+        successEl.classList.add('visible');
+        btn.textContent = 'Account created ✓';
+
+  setTimeout(() => {
+window.location.href = 'quiz.html';}, 1400);
+
+      } catch (err) {
+        errorEl.textContent = 'Cannot reach the server. Is the backend running?';
+        errorEl.classList.add('visible');
+        btn.textContent = 'Create Account';
+        btn.classList.remove('loading');
+        btn.disabled = false;
+      }
+    }
+
+    // ─── Forgot password (UI only — no email service yet) ─────────
+    function handleForgot() {
+      const email    = document.getElementById('signin-email').value.trim();
+      const errorEl  = document.getElementById('signin-error');
+      const successEl = document.getElementById('signin-success');
+      if (!email) {
+        errorEl.textContent = 'Enter your email above, then click "Forgot password?"';
+        errorEl.classList.add('visible');
+        return;
+      }
+      errorEl.classList.remove('visible');
+      successEl.textContent = `Reset link sent to ${email}. Check your inbox.`;
+      successEl.classList.add('visible');
+    }
+
+    function handleSocial(provider) {
+      alert(`${provider} sign-in would open here in a production environment.`);
+    }
+
+    // ─── Enter key support ────────────────────────────────────────
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const signinVisible = document.getElementById('signin-panel').style.display !== 'none';
+        if (signinVisible) handleSignIn();
+        else handleSignUp();
+      }
+    });
+
+    // ─── Navigation lock ──────────────────────────────────────────
+    function checkDashboardAccess() {
+      const dashboardLink = document.getElementById('nav-dashboard');
+      if (!dashboardLink) return;
+      const hasSkinType = localStorage.getItem('skinType');
+      if (!hasSkinType) {
+        dashboardLink.classList.add('disabled');
+        dashboardLink.href = 'javascript:void(0)';
+        dashboardLink.title = 'Please complete the diagnostic quiz first';
+      } else {
+        dashboardLink.classList.remove('disabled');
+        dashboardLink.href = 'dashboard.html';
+        dashboardLink.title = '';
+      }
+    }
+
+  </script>
+</body>
+</html>
