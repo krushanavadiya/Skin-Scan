@@ -1,36 +1,56 @@
-# Slate Sanctuary
+# Slate Sanctuary (SkinScan)
 
-A full-stack skin health management web app that helps users identify their skin type through a diagnostic quiz and get personalized skincare recommendations.
+A full-stack web application that helps users identify their skin type through a diagnostic quiz and provides personalized skincare routines, advice, and product recommendations.
 
-## Tech Stack
+## Architecture
 
-- **Runtime**: Node.js 20
-- **Framework**: Express.js
-- **Database**: SQLite (via `sqlite3` library, stored at `backend/slate_sanctuary.db`)
-- **Auth**: JWT (`jsonwebtoken`) + password hashing (`bcryptjs`)
-- **Frontend**: Vanilla HTML/CSS/JavaScript (no framework)
+- **Frontend**: Vanilla HTML/CSS/JavaScript (served statically from `frontend/`)
+- **Backend**: Node.js with Express (`backend/server.js`)
+- **Database**: PostgreSQL (Replit built-in, via `pg` package)
+- **Auth**: JWT-based authentication with bcryptjs password hashing
 
-## Project Structure
+## How It Works
 
+1. Users sign up / log in
+2. Take a 5-question diagnostic quiz about their skin behavior
+3. Receive a "Skin ID" (Dry, Oily, Combination, Sensitive, or Balanced)
+4. Get a personalized AM/PM routine, ingredient recommendations, and product suggestions
+
+## Key Files
+
+- `backend/server.js` — Express API server (auth, profile, skin-type endpoints)
+- `frontend/index.html` — Landing page
+- `frontend/login.html` — Sign up / login page
+- `frontend/quiz.html` / `frontend/quiz.js` — Skin quiz logic
+- `frontend/dashboard.html` / `frontend/dashboard.js` — Results and routine dashboard
+- `frontend/style.css` — All application styles
+
+## API Endpoints
+
+- `POST /api/signup` — Create account
+- `POST /api/login` — Sign in, returns JWT
+- `GET /api/profile` — Get user profile (authenticated)
+- `PATCH /api/profile/skin-type` — Update user's skin type result (authenticated)
+
+## Database Schema
+
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  skin_type VARCHAR(100) DEFAULT NULL,
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
 ```
-/
-├── backend/
-│   ├── server.js           # Main Express server + API routes
-│   └── slate_sanctuary.db  # SQLite database file
-├── frontend/
-│   ├── index.html          # Landing page
-│   ├── main.js             # Landing page JS (magnetic CTA, skin preview, nav lock)
-│   ├── login.html          # Login/signup page
-│   ├── dashboard.html      # User dashboard
-│   ├── dashboard.js
-│   ├── quiz.html           # Skin type diagnostic quiz
-│   ├── quiz.js
-│   ├── prescription.html   # Skincare recommendations
-│   ├── prescription.js
-│   └── style.css           # Global styles
-├── package.json
-└── README.md
-```
+
+## Environment Variables
+
+- `DATABASE_URL` — PostgreSQL connection string (provided by Replit)
+- `SESSION_SECRET` — Used as JWT secret fallback (provided by Replit)
+- `PORT` — Server port (defaults to 5000)
 
 ## Running the App
 
@@ -38,18 +58,9 @@ A full-stack skin health management web app that helps users identify their skin
 npm run dev
 ```
 
-The app runs on port **5000** (`0.0.0.0:5000`). The Express server serves both the API and static frontend files.
+Server starts on port 5000.
 
-## API Endpoints
+## Migration Notes
 
-- `POST /api/signup` — Register a new user
-- `POST /api/login` — Authenticate and receive a JWT
-- `GET /api/profile` — Get user profile (protected)
-- `PATCH /api/profile/skin-type` — Update skin type after quiz (protected)
-
-## Key Notes
-
-- The JWT token is stored in `localStorage` as `ss_token`
-- SQLite DB is created automatically on first run
-- CORS is open to all origins (`*`) for development
-- `frontend/main.js` handles landing page interactivity (magnetic button, skin ID preview, nav lock)
+- Originally built with MongoDB/Mongoose; migrated to Replit's built-in PostgreSQL for reliability.
+- The `mongoose` dependency was removed and replaced with `pg`.
