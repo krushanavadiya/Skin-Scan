@@ -3,71 +3,533 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Glow Prescription</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Glow Prescription – Slate Sanctuary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .rx-main {
+      flex: 1;
+      padding: 2.4rem 5vw 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.4rem;
+    }
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    .rx-hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .rx-hero-left {
+      max-width: 540px;
+    }
+
+    .rx-title {
+      margin: 0.4rem 0 0.6rem;
+      font-size: clamp(2rem, 3vw + 1rem, 2.8rem);
+      letter-spacing: -0.05em;
+      line-height: 1.05;
+    }
+
+    .rx-subtitle {
+      margin: 0;
+      font-size: 0.98rem;
+      color: #64748B;
+      max-width: 34rem;
+    }
+
+    .rx-hero-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.85);
+      border: 1px solid rgba(148,163,184,0.4);
+      border-radius: 20px;
+      padding: 0.9rem 1.4rem;
+      font-size: 0.88rem;
+      color: #64748B;
+      backdrop-filter: blur(12px);
+      white-space: nowrap;
+    }
+
+    .rx-hero-badge strong {
+      color: #0F172A;
+      font-weight: 600;
+    }
+
+    /* Skin type selector */
+    .rx-selector {
+      display: flex;
+      gap: 0.7rem;
+      flex-wrap: wrap;
+    }
+
+    .rx-skin-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 1rem 1.4rem;
+      border-radius: 24px;
+      border: 1.5px solid rgba(148,163,184,0.4);
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(12px);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      min-width: 110px;
+      font-family: inherit;
+    }
+
+    .rx-skin-btn:hover {
+      border-color: rgba(100,116,139,0.6);
+      background: rgba(255,255,255,0.9);
+      transform: translateY(-2px);
+    }
+
+    .rx-skin-btn.active {
+      background: #0F172A;
+      border-color: #0F172A;
+      color: #F8FAFC;
+      box-shadow: 0 12px 32px rgba(15,23,42,0.22);
+      transform: translateY(-2px);
+    }
+
+    .rx-skin-btn .btn-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .rx-skin-btn .btn-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .rx-skin-btn .btn-tag {
+      font-size: 0.7rem;
+      color: #94A3B8;
+      letter-spacing: 0.06em;
+    }
+
+    .rx-skin-btn.active .btn-tag {
+      color: rgba(248,250,252,0.6);
+    }
+
+    /* Content panel */
+    .rx-panel {
+      display: none;
+      flex-direction: column;
+      gap: 2rem;
+      animation: rx-fade-in 0.35s ease;
+    }
+
+    .rx-panel.active {
+      display: flex;
+    }
+
+    @keyframes rx-fade-in {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .rx-panel-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1.4rem;
+      align-items: center;
+    }
+
+    .rx-panel-title {
+      margin: 0 0 0.3rem;
+      font-size: 1.4rem;
+      letter-spacing: -0.03em;
+    }
+
+    .rx-panel-desc {
+      margin: 0;
+      font-size: 0.92rem;
+      color: #64748B;
+    }
+
+    .rx-count-badge {
+      font-size: 0.75rem;
+      color: #64748B;
+      background: rgba(248,250,252,0.9);
+      border: 1px solid rgba(148,163,184,0.4);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      white-space: nowrap;
+    }
+
+    /* Product grid */
+    .rx-product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .rx-product-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 28px;
+      padding: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 24px rgba(15,23,42,0.05);
+      cursor: default;
+    }
+
+    .rx-product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(15,23,42,0.1);
+      border-color: rgba(148,163,184,0.5);
+      background: rgba(255,255,255,0.92);
+    }
+
+    .rx-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .rx-card-icon {
+      flex: 0 0 auto;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: rgba(248,250,252,0.95);
+      border: 1px solid rgba(148,163,184,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
+
+    .rx-card-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .rx-card-brand {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #94A3B8;
+      margin: 0 0 0.2rem;
+    }
+
+    .rx-card-name {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0F172A;
+      margin: 0;
+      line-height: 1.25;
+    }
+
+    .rx-card-desc {
+      margin: 0;
+      font-size: 0.86rem;
+      color: #64748B;
+      line-height: 1.5;
+    }
+
+    .rx-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.6rem;
+      margin-top: auto;
+    }
+
+    .rx-card-tag {
+      font-size: 0.7rem;
+      color: #64748B;
+      background: rgba(148,163,184,0.12);
+      border: 1px solid rgba(148,163,184,0.22);
+      border-radius: 999px;
+      padding: 0.2rem 0.6rem;
+    }
+
+    .rx-shop-btn {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #0F172A;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(148,163,184,0.5);
+      border-radius: 999px;
+      padding: 0.35rem 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .rx-shop-btn:hover {
+      background: #0F172A;
+      color: #F8FAFC;
+      border-color: #0F172A;
+    }
+
+    /* Avoid section */
+    .rx-avoid-section {
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 28px;
+      padding: 1.4rem 1.6rem;
+      box-shadow: 0 6px 20px rgba(15,23,42,0.05);
+    }
+
+    .rx-avoid-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #94A3B8;
+      margin: 0 0 0.9rem;
+    }
+
+    .rx-avoid-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .rx-avoid-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.84rem;
+      color: #64748B;
+      background: rgba(248,250,252,0.9);
+      border: 1px solid rgba(148,163,184,0.3);
+      border-radius: 999px;
+      padding: 0.35rem 0.85rem;
+    }
+
+    .rx-avoid-chip::before {
+      content: '×';
+      color: #94A3B8;
+      font-weight: 600;
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* Tip strip */
+    .rx-tip {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      background: rgba(255,255,255,0.4);
+      border: 1px solid rgba(148,163,184,0.25);
+      border-radius: 20px;
+      padding: 1rem 1.2rem;
+      font-size: 0.88rem;
+      color: #64748B;
+    }
+
+    .rx-tip-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+    }
+
+    @media (max-width: 768px) {
+      .rx-main { padding-inline: 1.25rem; }
+      .rx-hero { flex-direction: column; align-items: flex-start; }
+      .rx-selector { gap: 0.5rem; }
+      .rx-skin-btn { min-width: 90px; padding: 0.8rem 1rem; }
+      .rx-panel-header { grid-template-columns: 1fr; }
+      .rx-product-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body class="slate-body">
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-  <!-- NAVBAR -->
   <header class="site-header">
     <div class="logo-mark">SS</div>
     <nav class="site-nav">
       <a href="index.html" class="nav-link">Home</a>
       <a href="quiz.html" class="nav-link">Diagnostic Quiz</a>
       <a href="dashboard.html" class="nav-link">Dashboard</a>
-      <a href="prescription.html" class="nav-link active">Glow Prescription</a>
+      <a href="prescription.html" class="nav-link active">Prescription</a>
     </nav>
   </header>
 
-  <!-- MAIN CONTENT -->
-  <main class="hero">
+  <main class="rx-main">
 
-    <article class="bento-item prescription glass-card" id="open-prescription">
-      <header class="bento-header">
-        <h2>Glow Prescription</h2>
-        <span class="pill">Dermatologist</span>
-      </header>
-      <p class="skin-id-value">View prescribed products →</p>
-    </article>
+    <!-- Hero -->
+    <div class="rx-hero">
+      <div class="rx-hero-left">
+        <p class="eyebrow">Slate Sanctuary • Glow Prescription</p>
+        <h1 class="rx-title">Dermatologist‑curated<br/>product picks.</h1>
+        <p class="rx-subtitle">Select your skin type below to see targeted product recommendations, what to avoid, and a quick-start tip from our panel.</p>
+      </div>
+      <div class="rx-hero-badge">
+        <span>🧴</span>
+        <span><strong>5 skin types</strong> · Real products · Amazon links</span>
+      </div>
+    </div>
+
+    <!-- Skin type selector -->
+    <div class="rx-selector" id="rx-selector">
+      <button class="rx-skin-btn active" data-type="oily">
+        <span class="btn-icon">✨</span>
+        <span class="btn-label">Oily</span>
+        <span class="btn-tag">CLARITY-FIRST</span>
+      </button>
+      <button class="rx-skin-btn" data-type="dry">
+        <span class="btn-icon">🌿</span>
+        <span class="btn-label">Dry</span>
+        <span class="btn-tag">BARRIER-FIRST</span>
+      </button>
+      <button class="rx-skin-btn" data-type="combination">
+        <span class="btn-icon">⚖️</span>
+        <span class="btn-label">Combination</span>
+        <span class="btn-tag">ZONE CARE</span>
+      </button>
+      <button class="rx-skin-btn" data-type="sensitive">
+        <span class="btn-icon">🌸</span>
+        <span class="btn-label">Sensitive</span>
+        <span class="btn-tag">GENTLE ONLY</span>
+      </button>
+      <button class="rx-skin-btn" data-type="acne">
+        <span class="btn-icon">🎯</span>
+        <span class="btn-label">Acne-Prone</span>
+        <span class="btn-tag">TREATMENT</span>
+      </button>
+    </div>
+
+    <!-- Panels (one per skin type) -->
+    <div class="rx-panel active" id="panel-oily">
+      <div class="rx-panel-header">
+        <div>
+          <h2 class="rx-panel-title">Oily Skin — Clarity-first picks</h2>
+          <p class="rx-panel-desc">Focus on lightweight hydration, pore care, and oil regulation without stripping.</p>
+        </div>
+        <span class="rx-count-badge">5 products</span>
+      </div>
+      <div class="rx-product-grid" id="grid-oily"></div>
+      <div class="rx-avoid-section">
+        <p class="rx-avoid-title">Avoid these for oily skin</p>
+        <div class="rx-avoid-grid">
+          <span class="rx-avoid-chip">Heavy face oils</span>
+          <span class="rx-avoid-chip">Thick balm cleansers</span>
+          <span class="rx-avoid-chip">Coconut oil</span>
+          <span class="rx-avoid-chip">Alcohol-free toners that are still drying</span>
+          <span class="rx-avoid-chip">Over-cleansing (2× daily max)</span>
+        </div>
+      </div>
+      <div class="rx-tip"><span class="rx-tip-icon">💡</span><span>Skipping moisturiser makes oiliness worse — your skin overproduces sebum to compensate. Use a lightweight gel moisturiser every morning.</span></div>
+    </div>
+
+    <div class="rx-panel" id="panel-dry">
+      <div class="rx-panel-header">
+        <div>
+          <h2 class="rx-panel-title">Dry Skin — Barrier-first picks</h2>
+          <p class="rx-panel-desc">Layer humectants under ceramide-rich creams and avoid anything that strips your lipids.</p>
+        </div>
+        <span class="rx-count-badge">5 products</span>
+      </div>
+      <div class="rx-product-grid" id="grid-dry"></div>
+      <div class="rx-avoid-section">
+        <p class="rx-avoid-title">Avoid these for dry skin</p>
+        <div class="rx-avoid-grid">
+          <span class="rx-avoid-chip">Foaming / SLS cleansers</span>
+          <span class="rx-avoid-chip">Strong AHAs daily</span>
+          <span class="rx-avoid-chip">Alcohol-based toners</span>
+          <span class="rx-avoid-chip">Hot water on face</span>
+          <span class="rx-avoid-chip">Skipping SPF in winter</span>
+        </div>
+      </div>
+      <div class="rx-tip"><span class="rx-tip-icon">💡</span><span>Apply your serum and moisturiser on slightly damp skin — it helps trap hydration and dramatically improves absorption.</span></div>
+    </div>
+
+    <div class="rx-panel" id="panel-combination">
+      <div class="rx-panel-header">
+        <div>
+          <h2 class="rx-panel-title">Combination Skin — Zonal picks</h2>
+          <p class="rx-panel-desc">Use lighter textures on the T-zone and richer formulas on cheeks. Spot-treat, don't blanket-treat.</p>
+        </div>
+        <span class="rx-count-badge">5 products</span>
+      </div>
+      <div class="rx-product-grid" id="grid-combination"></div>
+      <div class="rx-avoid-section">
+        <p class="rx-avoid-title">Avoid these for combination skin</p>
+        <div class="rx-avoid-grid">
+          <span class="rx-avoid-chip">One heavy cream everywhere</span>
+          <span class="rx-avoid-chip">Alcohol-based serums</span>
+          <span class="rx-avoid-chip">Over-exfoliating the whole face</span>
+          <span class="rx-avoid-chip">Skipping the T-zone in your routine</span>
+        </div>
+      </div>
+      <div class="rx-tip"><span class="rx-tip-icon">💡</span><span>Treat your face like two separate zones: apply a lighter gel on T-zone and a cream on cheeks. It takes 30 extra seconds and makes a real difference.</span></div>
+    </div>
+
+    <div class="rx-panel" id="panel-sensitive">
+      <div class="rx-panel-header">
+        <div>
+          <h2 class="rx-panel-title">Sensitive Skin — Gentle-only picks</h2>
+          <p class="rx-panel-desc">Short ingredient lists, fragrance-free, and always patch-test on your jawline first.</p>
+        </div>
+        <span class="rx-count-badge">5 products</span>
+      </div>
+      <div class="rx-product-grid" id="grid-sensitive"></div>
+      <div class="rx-avoid-section">
+        <p class="rx-avoid-title">Avoid these for sensitive skin</p>
+        <div class="rx-avoid-grid">
+          <span class="rx-avoid-chip">Fragrance (parfum)</span>
+          <span class="rx-avoid-chip">Denatured alcohol</span>
+          <span class="rx-avoid-chip">Strong retinoids</span>
+          <span class="rx-avoid-chip">Physical scrubs</span>
+          <span class="rx-avoid-chip">Essential oils (lavender, peppermint)</span>
+        </div>
+      </div>
+      <div class="rx-tip"><span class="rx-tip-icon">💡</span><span>Introduce one new product at a time and wait 2 weeks before adding another. If your skin reacts, you'll know exactly what caused it.</span></div>
+    </div>
+
+    <div class="rx-panel" id="panel-acne">
+      <div class="rx-panel-header">
+        <div>
+          <h2 class="rx-panel-title">Acne-Prone Skin — Treatment picks</h2>
+          <p class="rx-panel-desc">Target active breakouts and congestion with proven actives while keeping the barrier intact.</p>
+        </div>
+        <span class="rx-count-badge">5 products</span>
+      </div>
+      <div class="rx-product-grid" id="grid-acne"></div>
+      <div class="rx-avoid-section">
+        <p class="rx-avoid-title">Avoid these for acne-prone skin</p>
+        <div class="rx-avoid-grid">
+          <span class="rx-avoid-chip">Comedogenic oils (coconut, flaxseed)</span>
+          <span class="rx-avoid-chip">Over-drying spot treatments</span>
+          <span class="rx-avoid-chip">Scrubbing active breakouts</span>
+          <span class="rx-avoid-chip">Makeup with bismuth oxychloride</span>
+          <span class="rx-avoid-chip">Touching / picking</span>
+        </div>
+      </div>
+      <div class="rx-tip"><span class="rx-tip-icon">💡</span><span>Moisturising acne-prone skin is non-negotiable. A stripped, dehydrated barrier makes breakouts worse. Choose a non-comedogenic, lightweight moisturiser.</span></div>
+    </div>
 
   </main>
 
-  <!-- MODAL -->
-  <div class="rx-modal" id="rx-modal">
-    <div class="rx-modal-content glass-card">
-
-      <h2>Dermatologist Prescriptions</h2>
-
-      <p class="skin-id-label">Select your skin type</p>
-
-      <div class="skin-options">
-        <button class="skin-btn" data-type="oily">Oily</button>
-        <button class="skin-btn" data-type="dry">Dry</button>
-        <button class="skin-btn" data-type="acne">Acne</button>
-        <button class="skin-btn" data-type="sensitive">Sensitive</button>
-      </div>
-
-      <div id="rx-products" class="rx-products"></div>
-
-      <button id="close-rx" class="btn-ghost">Close</button>
-
-    </div>
-  </div>
-<section class="glow-hero glass-card">
-  <img src="https://static.glossgenius.com/public/service/7ed76f5db8fc28b003e3db047850abc5749a03c8/image/58ace6b34ac9191a2fd39a7cc08635e7.jpg" class="glow-image" />
-  <div class="glow-overlay">
-    <h1>Glow Prescription</h1>
-    <p>Your dermatologist-curated skincare essentials</p>
-  </div>
-</section>
-  <!-- FOOTER -->
   <footer class="site-footer">
     <p class="footer-copy">Slate Sanctuary © <span id="year"></span></p>
+    <p style="font-size:0.8rem;color:#94A3B8;margin:0;">Products link to Amazon India for convenience.</p>
   </footer>
 
   <script src="prescription.js"></script>
