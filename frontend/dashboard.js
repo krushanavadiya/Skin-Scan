@@ -519,6 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Navigation Lock Logic ---
     function checkDashboardAccess() {
       const dashboardLink = document.getElementById('nav-dashboard');
+      if (!dashboardLink) return;
       const hasSkinType = localStorage.getItem('skinType');
 
       // If they haven't taken the quiz (no skinType), disable the link
