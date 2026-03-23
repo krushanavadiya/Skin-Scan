@@ -465,6 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 3. Render Function
   function renderProduct() {
+    if (!productDisplay) return;
     const productsList = productDatabase[currentCategory];
     const product = productsList[currentProductIndex];
     

@@ -2,7 +2,7 @@ const openBtn = document.getElementById("open-prescription");
 const modal = document.getElementById("rx-modal");
 const closeBtn = document.getElementById("close-rx");
 
-openBtn.addEventListener("click", () => {
+if (openBtn) openBtn.addEventListener("click", () => {
   modal.style.display = "flex";
 
   gsap.from(".rx-modal-content", {
@@ -12,7 +12,7 @@ openBtn.addEventListener("click", () => {
   });
 });
 
-closeBtn.addEventListener("click", () => {
+if (closeBtn) closeBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
