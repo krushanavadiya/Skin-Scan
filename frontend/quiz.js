@@ -202,7 +202,7 @@ function finishQuiz() {
   // Sync skin type to backend if the user is logged in
   const token = localStorage.getItem('ss_token');
   if (token) {
-    fetch(''/api/profile/skin-type, {
+    fetch('/api/profile/skin-type', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
