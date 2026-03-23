@@ -44,3 +44,4 @@ run = ["node", "backend/server.js"]
 [userenv]
 
 [userenv.shared]
+MONGODB_URI = "mongodb+srv://krushanavadiya:10Kn%401134@cluster0.dezlufc.mongodb.net/?appName=Cluster0"
