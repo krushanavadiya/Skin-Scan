@@ -578,7 +578,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 document.addEventListener('DOMContentLoaded', () => {
   initDashboardYearAndRetake();
-  hydrateDashboardFromSkinType();
   populateCommunity();
-  initRoutineToggle(); // <-- Add this line right here!
+
+  const token = localStorage.getItem('ss_token');
+  if (token) {
+    fetch('/api/profile', {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.user && data.user.skin_type) {
+          localStorage.setItem('skinType', data.user.skin_type);
+        }
+        hydrateDashboardFromSkinType();
+        initRoutineToggle();
+      })
+      .catch(() => {
+        hydrateDashboardFromSkinType();
+        initRoutineToggle();
+      });
+  } else {
+    hydrateDashboardFromSkinType();
+    initRoutineToggle();
+  }
 });
